@@ -1,19 +1,30 @@
 import React, {Component} from 'react'
 import Grass from './Grass'
+import axios from 'axios';
 
 export default class finder extends Component {
     constructor () {
         super ()
         this.state = {
-            grassArr: [false, false, false]
+            grassArr: []
         }
+    }
+    componentDidMount() {
+        axios.get('/api/grass').then(res => {
+            this.setState({
+                grassArr:res.data
+            })
+        })
     }
     render () {
         return (
-            <div>
-                <Grass/>
-                <Grass/>
-                <Grass/>
+            <div className='finder'>
+                {this.state.grassArr.map(pokemon => (
+                    <Grass 
+                    key={pokemon.name} 
+                    pokeData={pokemon} 
+                    catchFn={this.props.catchFn}/>
+                ))}
             </div>
         )
     }

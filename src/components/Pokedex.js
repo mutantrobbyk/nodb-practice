@@ -5,7 +5,15 @@ export default class Pokedex extends Component {
     render() {
         return (
             <div>
-                <Pokemon/>
+                <h2>Pokedex</h2>
+                <div className='pokemon-list'>
+                {this.props.pokemonArray.map(pokemon => (
+                    <Pokemon 
+                    key={pokemon.id} 
+                    pokemonData={pokemon}
+                    releaseFn={this.props.releaseFn}/>
+                ))}
+                </div>
             </div>
         )
     }
